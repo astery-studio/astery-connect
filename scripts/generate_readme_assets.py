@@ -11,6 +11,7 @@ except ImportError as error:
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
 SOURCE_COVER = ASSETS / "capa-retro.png"
+SOURCE_ARCHITECTURE = ASSETS / "arquitetura-base.png"
 
 CREAM = "#fff5f7"
 PALE_PINK = "#fbd3e2"
@@ -69,53 +70,50 @@ def save_cover_animation():
     )
 
 
-def window(draw, box, title, active=False):
-    x1, y1, x2, y2 = box
-    draw.rectangle((x1 + 5, y1 + 5, x2 + 5, y2 + 5), fill=BURGUNDY)
-    draw.rectangle(box, fill=CREAM, outline=BURGUNDY, width=3)
-    draw.rectangle((x1 + 3, y1 + 3, x2 - 3, y1 + 27), fill=HOT_PINK if active else PINK)
-    draw.line((x1 + 3, y1 + 29, x2 - 3, y1 + 29), fill=BURGUNDY, width=3)
-    draw.text((x1 + 10, y1 + 7), title, font=pixel_font(12, True), fill=WHITE if active else BURGUNDY)
-    for offset, symbol in [(58, "_"), (35, "o"), (12, "x")]:
-        bx = x2 - offset
-        draw.rectangle((bx, y1 + 7, bx + 17, y1 + 22), fill=CREAM, outline=BURGUNDY, width=2)
-        draw.text((bx + 8, y1 + 13), symbol, anchor="mm", font=pixel_font(9, True), fill=BURGUNDY)
+def architecture_card(draw, y, title, class_name, description, active=False):
+    x1, x2 = 92, 508
+    fill = "#f9d2e2" if active else "#fff8fa"
+    title_fill = HOT_PINK if active else "#e99abb"
+    shadow = "#9b456b"
+
+    draw.rectangle((x1 + 3, y + 3, x2 + 3, y + 53), fill=shadow)
+    draw.rectangle((x1, y, x2, y + 50), fill=fill, outline=BURGUNDY, width=2)
+    draw.rectangle((x1 + 2, y + 2, x1 + 132, y + 48), fill=title_fill)
+    draw.line((x1 + 134, y + 3, x1 + 134, y + 47), fill=BURGUNDY, width=2)
+
+    draw.text((x1 + 67, y + 14), title, anchor="mm", font=pixel_font(12, True), fill=WHITE)
+    draw.text((x1 + 67, y + 34), class_name, anchor="mm", font=pixel_font(8, True), fill=BURGUNDY)
+    draw.text((x1 + 151, y + 12), description[0], font=pixel_font(10, True), fill=BURGUNDY)
+    draw.text((x1 + 151, y + 30), description[1], font=pixel_font(9), fill="#8f5370")
+
+    if active:
+        pixel_sparkle(draw, x2 - 13, y + 11, "#fff1a8", 1)
 
 
 def architecture_frame(active):
-    small = Image.new("RGB", (550, 230), "#f7d8e8")
-    draw = ImageDraw.Draw(small)
+    if not SOURCE_ARCHITECTURE.exists():
+        raise SystemExit(f"Moldura-base não encontrada: {SOURCE_ARCHITECTURE}")
 
-    for x in range(0, 550, 12):
-        draw.line((x, 0, x, 230), fill="#efc6dc")
-    for y in range(0, 230, 12):
-        draw.line((0, y, 550, y), fill="#efc6dc")
+    source = Image.open(SOURCE_ARCHITECTURE).convert("RGB")
+    source = source.resize((600, 338), Image.Resampling.LANCZOS)
+    draw = ImageDraw.Draw(source)
 
-    draw.rectangle((15, 12, 535, 216), fill="#fdebf2", outline=BURGUNDY, width=3)
-    draw.rectangle((18, 15, 532, 43), fill=PINK)
-    draw.text((32, 23), "camadas.exe", font=pixel_font(14, True), fill=BURGUNDY)
-    draw.text((430, 23), "_  o  x", font=pixel_font(13, True), fill=BURGUNDY)
+    draw.text((112, 45), "ARQUITETURA EM CAMADAS", font=pixel_font(14, True), fill=BURGUNDY)
 
-    layers = [
-        ("INTERFACE", "telas e componentes"),
-        ("SERVICO", "regras de negocio"),
-        ("REPOSITORIO", "dados em memoria"),
+    cards = [
+        ("INTERFACE", "Screens", ("Exibe e recebe ações", "HomeScreen, ChatScreen e Mensagem")),
+        ("SERVICE", "MensagemService", ("Aplica as regras de negócio", "Valida, cria e encaminha mensagens")),
+        ("REPOSITORY", "MensagemRepository", ("Gerencia os dados em memória", "Consulta mensagens por contato")),
     ]
-    xs = [28, 202, 376]
-    for index, ((title, description), x) in enumerate(zip(layers, xs)):
-        window(draw, (x, 72, x + 145, 172), title, index == active)
-        words = description.split(" ")
-        split = 2 if len(words) > 2 else 1
-        draw.text((x + 72, 121), " ".join(words[:split]), anchor="mm", font=pixel_font(10), fill=BURGUNDY)
-        if words[split:]:
-            draw.text((x + 72, 139), " ".join(words[split:]), anchor="mm", font=pixel_font(10), fill=BURGUNDY)
+    positions = [83, 166, 249]
+    for index, (card, y) in enumerate(zip(cards, positions)):
+        architecture_card(draw, y, *card, active=index == active)
 
-    draw.text((190, 118), ">", anchor="mm", font=pixel_font(20, True), fill=HOT_PINK)
-    draw.text((364, 118), ">", anchor="mm", font=pixel_font(20, True), fill=HOT_PINK)
-    pixel_sparkle(draw, 39, 198, HOT_PINK, 1)
-    pixel_sparkle(draw, 510, 195, "#aa83d0", 1)
+    for y in (143, 226):
+        draw.line((300, y, 300, y + 15), fill=HOT_PINK, width=3)
+        draw.polygon([(294, y + 13), (306, y + 13), (300, y + 20)], fill=HOT_PINK)
 
-    return small.resize((1100, 460), Image.Resampling.NEAREST)
+    return source.resize((1200, 676), Image.Resampling.NEAREST)
 
 
 def save_architecture_animation():
@@ -124,9 +122,10 @@ def save_architecture_animation():
         ASSETS / "arquitetura-retro.gif",
         save_all=True,
         append_images=frames[1:],
-        duration=[900, 900, 1200],
+        duration=[1100, 1100, 1400],
         loop=0,
-        optimize=True,
+        optimize=False,
+        disposal=2,
     )
 
 
