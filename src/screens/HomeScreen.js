@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
 
 const contatos = [
   { id: "1", nome: "Ana Souza" },
@@ -21,9 +21,17 @@ function obterChave(item) {
 
 export default function HomeScreen({ navigation }) {
   function renderizarContato({ item }) {
+    function selecionarContato() {
+      abrirConversa(navigation, item);
+    }
+
     return (
       <View style={styles.contato}>
         <Text style={styles.nome}>{item.nome}</Text>
+        <Button
+          title="Abrir conversa"
+          onPress={selecionarContato}
+        />
       </View>
     );
   }
