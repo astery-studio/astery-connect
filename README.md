@@ -8,24 +8,28 @@
   <img src="https://img.shields.io/badge/JavaScript-ES6+-fbd3e2?style=flat-square&logo=javascript&logoColor=6e2948" alt="JavaScript ES6+" />
 </div>
 
-## Sobre
+## O projeto
 
-O **Astery Connect** é um aplicativo mobile de mensagens desenvolvido para praticar navegação entre telas e organização de código em camadas com React Native e Expo.
+O **Astery Connect** foi desenvolvido para a atividade **“Desenvolvendo um APP de mensagens — Navegação e Organização em Camadas”**. O trabalho propõe a construção de um aplicativo simples de mensagens com React Native e Expo, priorizando navegação entre telas, passagem de parâmetros, componentes reutilizáveis e separação de responsabilidades.
 
-O usuário escolhe um contato, abre uma conversa e envia mensagens. Cada conversa mantém seu próprio histórico enquanto o aplicativo permanece aberto.
+Na aplicação, o usuário escolhe um contato, acessa a conversa correspondente e envia mensagens. Os dados são mantidos em memória e cada contato possui seu próprio histórico durante a execução do aplicativo.
 
 > A identidade visual da aplicação ainda está em construção. A arte deste README apresenta o conceito retrô do projeto, não a interface final.
 
-## O que já funciona
+## Requisitos atendidos
 
-- listagem de contatos disponíveis;
-- navegação da tela de contatos para a conversa selecionada;
-- envio de mensagens com validação de texto vazio;
-- mensagens exibidas em balões diferentes para envio e recebimento;
-- histórico separado pelo identificador de cada contato;
-- regras de negócio e armazenamento isolados da interface.
+| Requisito do trabalho | Implementação |
+| --- | --- |
+| Tela inicial | Exibe quatro contatos fictícios e permite abrir uma conversa |
+| Navegação | Utiliza Stack Navigator e envia o identificador e o nome do contato pela rota |
+| Tela de conversa | Apresenta o contato selecionado, a lista de mensagens, o campo de texto e o botão de envio |
+| Validação | Impede o envio de mensagens vazias e limpa o campo após o envio |
+| Componente reutilizável | `Mensagem` recebe o texto e o estado `recebida` para definir alinhamento e estilo |
+| Service | Centraliza as regras para consultar, validar, criar e enviar mensagens |
+| Repository | Armazena as mensagens em memória e filtra os dados pelo contato |
+| Separação em camadas | A interface acessa os dados por meio do Service, sem consultar o Repository diretamente |
 
-## Como o projeto foi organizado
+## Organização em camadas
 
 <div align="center">
   <img src="docs/assets/arquitetura-retro.gif" alt="Fluxo entre interface, serviço e repositório em janelas retrô" width="760" />
@@ -47,7 +51,7 @@ astery-connect/
 └── package.json
 ```
 
-O fluxo principal é direto: a tela solicita uma operação ao serviço, o serviço aplica as regras necessárias e o repositório consulta ou altera os dados em memória.
+O fluxo mantém a interface separada das regras de negócio e do armazenamento: as telas solicitam operações ao `MensagemService`, que valida os dados e se comunica com o `MensagemRepository`.
 
 ## Tecnologias
 
@@ -89,7 +93,7 @@ npm run ios
 
 > O comando para iOS requer macOS com o simulador configurado.
 
-## Fluxo da aplicação
+## Fluxo principal
 
 1. A `HomeScreen` apresenta os contatos cadastrados localmente.
 2. Ao abrir uma conversa, o identificador e o nome do contato seguem pela rota `Chat`.
@@ -97,10 +101,8 @@ npm run ios
 4. O serviço valida o conteúdo, cria a mensagem e solicita seu armazenamento ao repositório.
 5. A lista é atualizada e o componente `Mensagem` define a aparência do balão.
 
-## Limitações atuais
+## Escopo da atividade
 
-- as mensagens ficam somente em memória e são apagadas ao reiniciar o aplicativo;
-- os contatos são dados estáticos definidos no código;
-- ainda não há autenticação, API remota ou recebimento de mensagens em tempo real.
+Seguindo a proposta do trabalho, o projeto não utiliza MQTT, API externa ou banco de dados. As mensagens são armazenadas em memória por uma única instância do Service e não precisam permanecer disponíveis depois que o aplicativo é reiniciado.
 
-Essas limitações mantêm o foco do trabalho em navegação, componentes e separação de responsabilidades.
+Essa escolha mantém o foco nos objetivos avaliados: navegação, estado local, reutilização de componentes e organização em camadas.
