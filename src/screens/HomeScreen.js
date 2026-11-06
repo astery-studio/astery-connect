@@ -54,7 +54,7 @@ export default function HomeScreen({ navigation }) {
       <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
         <View style={styles.faixaTitulo}>
           <IconePixel nome="sparkles" cor="#a64e7a" />
-          <Text style={styles.titulo}>Contatos</Text>
+          <Text accessibilityRole="header" style={styles.titulo}>Contatos</Text>
           <IconePixel nome="heart" cor={cores.destaque} />
         </View>
 
@@ -93,12 +93,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   faixaTitulo: {
+    ...relevo,
     padding: 16,
-    marginBottom: 18,
-    backgroundColor: cores.rosa,
-    borderWidth: 2,
-    borderColor: cores.tinta,
-    color: cores.tinta,
+    marginBottom: 20,
+    backgroundColor: cores.rosaForte,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
@@ -106,7 +104,8 @@ const styles = StyleSheet.create({
   titulo: {
     flex: 1,
     color: cores.tinta,
-    fontSize: 21,
+    fontSize: 26,
+    textAlign: "center",
     fontFamily: fontes.negrito,
     letterSpacing: 1,
   },
