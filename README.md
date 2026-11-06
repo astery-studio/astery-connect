@@ -18,20 +18,9 @@ Na aplicação, o usuário escolhe um contato, acessa a conversa correspondente 
 
 ## Integrantes
 
-<table align="center">
-  <tr>
-    <td align="center" width="50%">
-      <img src="docs/assets/carla-profile.gif" alt="Perfil em pixel art de Carla Cristina Sousa Araújo" width="260" />
-      <br />
-      <strong>Carla Cristina Sousa Araújo</strong>
-    </td>
-    <td align="center" width="50%">
-      <img src="docs/assets/kaylanne-profile.gif" alt="Perfil em pixel art de Kaylanne de Jesus Sousa Satiro" width="260" />
-      <br />
-      <strong>Kaylanne de Jesus Sousa Satiro</strong>
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <img src="docs/assets/integrantes.gif" alt="Perfis em pixel art de Carla Cristina Sousa Araújo e Kaylanne de Jesus Sousa Satiro" width="820" />
+</div>
 
 ## Requisitos atendidos
 

@@ -133,61 +133,75 @@ def save_architecture_animation():
     )
 
 
-def profile_frame(avatar, frame_index):
-    canvas = Image.new("RGB", (260, 310), "#e8c9f3")
+def team_frame(avatars, frame_index):
+    canvas = Image.new("RGB", (600, 330), "#e8c9f3")
     draw = ImageDraw.Draw(canvas)
 
-    for position in range(0, 260, 12):
-        draw.line((position, 0, position, 310), fill="#d7afe8")
-    for position in range(0, 310, 12):
-        draw.line((0, position, 260, position), fill="#d7afe8")
+    for position in range(0, 600, 12):
+        draw.line((position, 0, position, 330), fill="#d7afe8")
+    for position in range(0, 330, 12):
+        draw.line((0, position, 600, position), fill="#d7afe8")
 
-    draw.rectangle((15, 15, 251, 301), fill="#5d2443")
-    draw.rectangle((10, 10, 246, 296), fill="#fff4f8", outline=BURGUNDY, width=3)
-    draw.rectangle((13, 13, 243, 43), fill=PINK)
-    draw.line((13, 45, 243, 45), fill=BURGUNDY, width=3)
-    draw.text((24, 21), "profile.exe", font=pixel_font(12, True), fill=BURGUNDY)
+    draw.rectangle((17, 17, 589, 319), fill="#5d2443")
+    draw.rectangle((12, 12, 584, 314), fill="#fff4f8", outline=BURGUNDY, width=3)
+    draw.rectangle((15, 15, 581, 48), fill=PINK)
+    draw.line((15, 50, 581, 50), fill=BURGUNDY, width=3)
+    draw.text((28, 23), "integrantes.exe", font=pixel_font(13, True), fill=BURGUNDY)
 
-    for x, symbol in [(184, "_"), (207, "o"), (230, "x")]:
+    for x, symbol in [(516, "_"), (539, "o"), (562, "x")]:
         draw.rectangle((x, 20, x + 15, 35), fill=CREAM, outline=BURGUNDY, width=2)
         draw.text((x + 7, 27), symbol, anchor="mm", font=pixel_font(8, True), fill=BURGUNDY)
 
-    draw.rectangle((26, 56, 234, 264), fill="#241229", outline=BURGUNDY, width=3)
-    icon = avatar.resize((200, 200), Image.Resampling.NEAREST)
-    canvas.paste(icon, (30, 60))
+    members = [
+        ("carla", "Carla Cristina", "Sousa Araújo"),
+        ("kaylanne", "Kaylanne de Jesus", "Sousa Satiro"),
+    ]
+    for index, (key, first_line, second_line) in enumerate(members):
+        x = 40 + index * 270
+        active = index == frame_index % 2
+        border = HOT_PINK if active else BURGUNDY
 
-    draw.rectangle((26, 272, 234, 289), fill="#f8dbe7", outline=BURGUNDY, width=2)
-    status_color = "#f0629a" if frame_index % 2 else "#9b456b"
-    draw.rectangle((35, 278, 41, 284), fill=status_color)
-    draw.text((49, 276), "status: integrante", font=pixel_font(8, True), fill=BURGUNDY)
+        draw.rectangle((x + 4, 67, x + 244, 298), fill="#8f4568")
+        draw.rectangle((x, 63, x + 240, 294), fill="#f9d7e5", outline=border, width=3)
+        draw.rectangle((x + 9, 72, x + 231, 239), fill="#241229", outline=BURGUNDY, width=2)
 
-    sparkle_positions = [(20, 64), (241, 252), (20, 246), (241, 66)]
+        icon = avatars[key].resize((162, 162), Image.Resampling.NEAREST)
+        canvas.paste(icon, (x + 39, 75))
+
+        draw.rectangle((x + 9, 247, x + 231, 286), fill="#fff6f9", outline=BURGUNDY, width=2)
+        status_color = "#f0629a" if active else "#9b456b"
+        draw.rectangle((x + 19, 257, x + 25, 263), fill=status_color)
+        draw.text((x + 120, 256), first_line, anchor="mm", font=pixel_font(10, True), fill=BURGUNDY)
+        draw.text((x + 120, 274), second_line, anchor="mm", font=pixel_font(9, True), fill="#8f5370")
+
+    sparkle_positions = [(27, 74), (573, 289), (27, 287), (573, 72)]
     sparkle_x, sparkle_y = sparkle_positions[frame_index % len(sparkle_positions)]
     pixel_sparkle(draw, sparkle_x, sparkle_y, "#fff1a8", 1)
 
-    return canvas.resize((520, 620), Image.Resampling.NEAREST)
+    return canvas.resize((1200, 660), Image.Resampling.NEAREST)
 
 
-def save_profile_animations():
+def save_team_animation():
+    avatars = {}
     for name, source_path in TEAM_AVATARS.items():
         if not source_path.exists():
             raise SystemExit(f"Avatar não encontrado: {source_path}")
+        avatars[name] = Image.open(source_path).convert("RGB")
 
-        avatar = Image.open(source_path).convert("RGB")
-        frames = [profile_frame(avatar, index) for index in range(4)]
-        frames[0].save(
-            ASSETS / f"{name}-profile.gif",
-            save_all=True,
-            append_images=frames[1:],
-            duration=[520, 520, 520, 760],
-            loop=0,
-            optimize=False,
-            disposal=2,
-        )
+    frames = [team_frame(avatars, index) for index in range(4)]
+    frames[0].save(
+        ASSETS / "integrantes.gif",
+        save_all=True,
+        append_images=frames[1:],
+        duration=[620, 620, 620, 820],
+        loop=0,
+        optimize=False,
+        disposal=2,
+    )
 
 
 if __name__ == "__main__":
     save_cover_animation()
     save_architecture_animation()
-    save_profile_animations()
+    save_team_animation()
     print(f"Assets retrô gerados em {ASSETS}")
