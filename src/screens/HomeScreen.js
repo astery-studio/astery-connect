@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     flex: 1,
     padding: 16,
-    backgroundColor: cores.janela,
+    backgroundColor: cores.rosa,
     ...relevo,
   },
   janelaCompacta: {
