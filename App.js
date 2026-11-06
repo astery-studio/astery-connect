@@ -8,16 +8,24 @@ const Stack = createStackNavigator()
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home">
+            <Stack.Navigator
+                initialRouteName="Home"
+                screenOptions={{
+                    headerStyle: { backgroundColor: '#f6bfd4', borderBottomColor: '#512740', borderBottomWidth: 3 },
+                    headerTintColor: '#512740',
+                    headerTitleStyle: { fontWeight: 'bold', letterSpacing: 1 },
+                    cardStyle: { backgroundColor: '#f9e5f1' },
+                }}
+            >
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ title: 'Contatos' }}
+                    options={{ title: 'astery.exe' }}
                 />
                 <Stack.Screen
                     name="Chat"
                     component={ChatScreen}
-                    options={{ title: 'Conversa' }}
+                    options={{ title: 'chat.exe' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

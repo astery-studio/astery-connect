@@ -24,7 +24,7 @@ export default function Mensagem({ mensagem, recebida }) {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        marginBottom: 8,
+        marginBottom: 12,
     },
     recebida: {
         alignItems: "flex-start",
@@ -35,16 +35,20 @@ const styles = StyleSheet.create({
     balao: {
         maxWidth: "80%",
         padding: 12,
-        borderRadius: 10,
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: "#512740",
+        borderRightWidth: 4,
+        borderBottomWidth: 4,
     },
     balaoRecebido: {
-        backgroundColor: "#eeeeee",
+        backgroundColor: "#f6bfd4",
     },
     balaoEnviado: {
-        backgroundColor: "#d9fdd3",
+        backgroundColor: "#fff5f8",
     },
     texto: {
         fontSize: 16,
-        color: "#222222",
+        color: "#512740",
     },
 });
