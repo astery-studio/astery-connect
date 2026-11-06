@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
-import { FlatList, TouchableOpacity, StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
+import { useHeaderHeight } from '@react-navigation/elements'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import Mensagem from '../components/Mensagem'
 import mensagemService from '../services/MensagemService'
 
 
 export default function ChatScreen({ route }) {
+    const { width, fontScale } = useWindowDimensions()
+    const alturaCabecalho = useHeaderHeight()
+    const envioCompacto = width / fontScale < 320
     const { contatoId, nome } = route.params
     const [mensagens, setMensagens] = useState([])
     const [texto, setTexto] = useState('')
@@ -30,48 +35,62 @@ export default function ChatScreen({ route }) {
     }
 
     return (
-        <View style={estilos.tela}>
-            <View style={estilos.janela}>
-                <Text style={estilos.nome}>
-                    {'✦  '}{nome}
-                </Text>
+        <SafeAreaView style={estilos.tela} edges={['left', 'right', 'bottom']}>
+            <KeyboardAvoidingView
+                style={estilos.conteudo}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                keyboardVerticalOffset={alturaCabecalho}
+            >
+                <View style={estilos.janela}>
+                    <Text style={estilos.nome}>
+                        {'✦  '}{nome}
+                    </Text>
 
-                <FlatList
-                    style={estilos.lista}
-                    contentContainerStyle={estilos.mensagens}
-                    data={mensagens}
-                    renderItem={renderizarMensagem}
-                />
-
-                <View style={estilos.envio}>
-                    <TextInput
-                        style={estilos.campo}
-                        placeholder="Digite uma mensagem"
-                        placeholderTextColor="#775568"
-                        accessibilityLabel="Mensagem"
-                        value={texto}
-                        onChangeText={setTexto}
+                    <FlatList
+                        style={estilos.lista}
+                        contentContainerStyle={estilos.mensagens}
+                        data={mensagens}
+                        keyboardShouldPersistTaps="handled"
+                        renderItem={renderizarMensagem}
                     />
-                    <TouchableOpacity
-                        style={estilos.botao}
-                        accessibilityRole="button"
-                        onPress={enviarMensagem}
-                    >
-                        <Text style={estilos.botaoTexto}>Enviar</Text>
-                    </TouchableOpacity>
+
+                    <View style={[estilos.envio, envioCompacto && estilos.envioCompacto]}>
+                        <TextInput
+                            style={[estilos.campo, envioCompacto && estilos.campoCompacto]}
+                            placeholder="Digite uma mensagem"
+                            placeholderTextColor="#775568"
+                            accessibilityLabel="Mensagem"
+                            value={texto}
+                            onChangeText={setTexto}
+                        />
+                        <TouchableOpacity
+                            style={estilos.botao}
+                            accessibilityRole="button"
+                            onPress={enviarMensagem}
+                        >
+                            <Text style={estilos.botaoTexto}>Enviar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        </View>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
 
 const estilos = StyleSheet.create({
     tela: {
         flex: 1,
-        padding: 16,
         backgroundColor: '#f9e5f1',
     },
+    conteudo: {
+        flex: 1,
+        alignItems: 'center',
+        paddingHorizontal: 8,
+        paddingVertical: 8,
+    },
     janela: {
+        width: '100%',
+        maxWidth: 720,
         flex: 1,
         padding: 8,
         backgroundColor: '#f6bfd4',
@@ -104,6 +123,11 @@ const estilos = StyleSheet.create({
         alignItems: 'center',
         marginTop: 8,
     },
+    envioCompacto: {
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        gap: 8,
+    },
     campo: {
         flex: 1,
         minHeight: 44,
@@ -113,6 +137,10 @@ const estilos = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#512740',
         color: '#512740',
+    },
+    campoCompacto: {
+        flex: 0,
+        marginRight: 0,
     },
     botao: {
         minHeight: 44,

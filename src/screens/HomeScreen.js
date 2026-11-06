@@ -1,5 +1,7 @@
 import React from "react";
-import { FlatList, TouchableOpacity, StyleSheet, Text, View } from "react-native";
+import { FlatList, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const contatos = [
   { id: "1", nome: "Ana Souza" },
@@ -20,6 +22,8 @@ function obterChave(item) {
 }
 
 export default function HomeScreen({ navigation }) {
+  const { width } = useWindowDimensions();
+
   function renderizarContato({ item }) {
     function selecionarContato() {
       abrirConversa(navigation, item);
@@ -40,8 +44,8 @@ export default function HomeScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.janela}>
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
+      <View style={[styles.janela, width < 360 && styles.janelaCompacta]}>
         <Text style={styles.titulo}>✦  Contatos</Text>
 
         <FlatList
@@ -50,17 +54,21 @@ export default function HomeScreen({ navigation }) {
           renderItem={renderizarContato}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    alignItems: "center",
+    paddingHorizontal: 8,
     backgroundColor: "#f9e5f1",
   },
   janela: {
+    width: "100%",
+    maxWidth: 640,
+    marginVertical: 12,
     flex: 1,
     padding: 12,
     backgroundColor: "#e7dcf7",
@@ -68,6 +76,9 @@ const styles = StyleSheet.create({
     borderColor: "#512740",
     borderRightWidth: 5,
     borderBottomWidth: 5,
+  },
+  janelaCompacta: {
+    padding: 8,
   },
   titulo: {
     padding: 12,
