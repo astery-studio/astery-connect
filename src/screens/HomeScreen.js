@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const contatos = [
   { id: "1", nome: "Ana Souza" },
@@ -20,9 +20,23 @@ function obterChave(item) {
 }
 
 export default function HomeScreen({ navigation }) {
+  function renderizarContato({ item }) {
+    return (
+      <View style={styles.contato}>
+        <Text style={styles.nome}>{item.nome}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Contatos</Text>
+
+      <FlatList
+        data={contatos}
+        keyExtractor={obterChave}
+        renderItem={renderizarContato}
+      />
     </View>
   );
 }
@@ -37,5 +51,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 24,
     fontWeight: "bold",
+  },
+  contato: {
+    marginBottom: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    borderRadius: 8,
+  },
+  nome: {
+    marginBottom: 10,
+    fontSize: 18,
   },
 });
