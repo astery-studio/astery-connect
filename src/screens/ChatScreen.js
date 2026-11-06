@@ -95,6 +95,7 @@ export default function ChatScreen({ route }) {
 
 const estilos = StyleSheet.create({
     tela: {
+        paddingBottom: 12,
         flex: 1,
         backgroundColor: '#f9e5f1',
     },
