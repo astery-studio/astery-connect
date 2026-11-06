@@ -1,4 +1,4 @@
-import { cores, fontes } from '../tema'
+import { cores, fontes, relevo } from '../tema'
 import { useEffect, useState } from 'react'
 import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -52,6 +52,7 @@ export default function ChatScreen({ route }) {
                         <BichinhoPixel coelho={contatoCoelho} tamanho={26} />
                         <IconePixel nome="heart" cor={cores.destaque} tamanho={16} />
                         <Text style={estilos.nome}>{nome}</Text>
+                        <IconePixel nome="sparkles" cor={cores.ameixa} tamanho={18} />
                     </View>
 
                     <View style={estilos.lista}>
@@ -82,6 +83,7 @@ export default function ChatScreen({ route }) {
                         <TouchableOpacity
                             style={estilos.botao}
                             accessibilityRole="button"
+                            activeOpacity={0.72}
                             onPress={enviarMensagem}
                         >
                             <IconePixel nome="heart" cor="#83315f" tamanho={16} />
@@ -119,10 +121,7 @@ const estilos = StyleSheet.create({
         flex: 1,
         padding: 14,
         backgroundColor: cores.janela,
-        borderWidth: 3,
-        borderColor: cores.tinta,
-        borderRightWidth: 5,
-        borderBottomWidth: 5,
+        ...relevo,
     },
     janelaCompacta: {
         padding: 10,
@@ -132,6 +131,8 @@ const estilos = StyleSheet.create({
         marginBottom: 12,
         backgroundColor: cores.creme,
         borderWidth: 2,
+        borderTopWidth: 3,
+        borderTopColor: cores.amora,
         borderColor: cores.tinta,
         color: cores.tinta,
         flexDirection: 'row',
@@ -187,6 +188,8 @@ const estilos = StyleSheet.create({
         padding: 8,
         backgroundColor: cores.creme,
         borderWidth: 2,
+        borderTopWidth: 3,
+        borderTopColor: cores.amora,
         borderColor: cores.tinta,
         color: cores.tinta,
     },
@@ -194,6 +197,7 @@ const estilos = StyleSheet.create({
         flex: 0,
     },
     botao: {
+        ...relevo,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 4,
@@ -201,9 +205,6 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 10,
         backgroundColor: cores.rosaForte,
-        borderWidth: 2,
-        borderColor: cores.tinta,
-        borderBottomWidth: 4,
     },
     botaoTexto: {
         color: cores.tinta,

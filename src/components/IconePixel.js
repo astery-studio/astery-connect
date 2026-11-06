@@ -1,3 +1,4 @@
+import { cores } from '../tema'
 import { StyleSheet, View } from 'react-native'
 import Svg, { Defs, Path, Pattern, Rect } from 'react-native-svg'
 
@@ -54,10 +55,10 @@ export function BichinhoPixel({ coelho = false, tamanho = 36 }) {
 
     return (
         <Svg width={tamanho} height={tamanho} viewBox="0 0 24 24" accessible={false}>
-            <Path d={contorno} fill="#512740" />
+            <Path d={contorno} fill={cores.tinta} />
             <Path d={rosto} fill={pelagem} />
             <Path d="M6 15h3v2H6zm9 0h3v2h-3z" fill="#e77ca5" />
-            <Path d="M7 12h2v2H7zm8 0h2v2h-2zm-4 4h2v1h-2z" fill="#512740" />
+            <Path d="M7 12h2v2H7zm8 0h2v2h-2zm-4 4h2v1h-2z" fill={cores.tinta} />
             <Path d="M9 5h2v1h2V5h2v4h-2V8h-2v1H9z" fill={coelho ? "#9465c8" : "#cb4482"} />
             <Path d="M10 6h1v2h-1zm3 0h1v2h-1z" fill="#fff3b5" />
         </Svg>
@@ -78,6 +79,10 @@ export function PapelPixel({ rosa = false }) {
                         <Path d="M11 42h2v3h3v2h-3v3h-2v-3H8v-2h3z" fill="#ce74aa" />
                         <Path d="M38 48h2v3h3v2h-3v3h-2v-3h-3v-2h3z" fill="#83ceb9" />
                         <Path d="M21 2h2v3h3v2h-3v3h-2V7h-3V5h3z" fill="#a584d8" />
+                        <Path d="M5 25h4v-3h5v3h4v5h-4v4H9v-4H5z" fill={cores.brilho} />
+                        <Path d="M9 25h5v5H9z" fill="#f1bf69" />
+                        <Path d="M46 29h4v-4h4v-3h6v3h4v9H46z" fill="#a591c9" />
+                        <Path d="M48 29h4v-3h4v-2h3v3h3v5H48z" fill={cores.brilho} />
                     </Pattern>
                 </Defs>
                 <Rect width="100%" height="100%" fill="url(#papel-pixel)" />

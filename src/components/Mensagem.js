@@ -1,4 +1,4 @@
-import { cores, fontes } from '../tema'
+import { cores, fontes, relevo } from '../tema'
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -10,6 +10,10 @@ export default function Mensagem({ mensagem, recebida, contatoCoelho }) {
         <View style={[styles.container, !recebida && styles.enviada]}>
             <BichinhoPixel coelho={recebida ? contatoCoelho : true} tamanho={32} />
             <View style={[styles.balao, recebida ? styles.balaoRecebido : styles.balaoEnviado]}>
+                <View
+                    pointerEvents="none"
+                    style={[styles.ponta, recebida ? styles.pontaEsquerda : styles.pontaDireita]}
+                />
                 <Text style={styles.texto}>{mensagem}</Text>
             </View>
         </View>
@@ -27,19 +31,34 @@ const styles = StyleSheet.create({
         flexDirection: "row-reverse",
     },
     balao: {
+        ...relevo,
         maxWidth: "80%",
         flexShrink: 1,
         padding: 12,
-        borderRadius: 4,
-        borderWidth: 2,
-        borderColor: cores.tinta,
-        borderRightWidth: 4,
-        borderBottomWidth: 4,
+        borderRadius: 6,
     },
     balaoRecebido: {
         backgroundColor: cores.rosaBalao,
     },
     balaoEnviado: {
+        backgroundColor: cores.baunilha,
+    },
+    ponta: {
+        position: "absolute",
+        width: 8,
+        height: 8,
+        bottom: 8,
+        borderBottomWidth: 3,
+        borderColor: cores.tinta,
+    },
+    pontaEsquerda: {
+        left: -8,
+        borderLeftWidth: 3,
+        backgroundColor: cores.rosaBalao,
+    },
+    pontaDireita: {
+        right: -8,
+        borderRightWidth: 3,
         backgroundColor: cores.baunilha,
     },
     texto: {

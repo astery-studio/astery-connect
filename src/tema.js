@@ -22,3 +22,13 @@ export const fontes = {
     seminegrito: 'PixelifySans_600SemiBold',
     negrito: 'PixelifySans_700Bold',
 }
+
+export const relevo = {
+    borderWidth: 3,
+    borderColor: cores.tinta,
+    borderTopColor: cores.amora,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderRadius: 4,
+    boxShadow: '3px 4px 0px ' + cores.sombra,
+}

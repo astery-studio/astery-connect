@@ -1,4 +1,4 @@
-import { cores, fontes } from '../tema'
+import { cores, fontes, relevo } from '../tema'
 import React from "react";
 import { FlatList, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
@@ -36,6 +36,7 @@ export default function HomeScreen({ navigation }) {
     return (
       <TouchableOpacity
         style={styles.contato}
+        activeOpacity={0.72}
         onPress={selecionarContato}
         accessibilityRole="button"
         accessibilityLabel={`Abrir conversa com ${item.nome}`}
@@ -49,14 +50,16 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={[styles.container, telaEstreita && styles.containerCompacto]} edges={["left", "right", "bottom"]}>
+      <PapelPixel rosa />
       <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
-        <PapelPixel rosa />
         <View style={styles.faixaTitulo}>
           <IconePixel nome="sparkles" cor="#a64e7a" />
           <Text style={styles.titulo}>Contatos</Text>
+          <IconePixel nome="heart" cor={cores.destaque} />
         </View>
 
         <FlatList
+          contentContainerStyle={styles.lista}
           data={contatos}
           keyExtractor={obterChave}
           renderItem={renderizarContato}
@@ -82,11 +85,8 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     flex: 1,
     padding: 16,
-    backgroundColor: cores.lilas,
-    borderWidth: 3,
-    borderColor: cores.tinta,
-    borderRightWidth: 5,
-    borderBottomWidth: 5,
+    backgroundColor: cores.janela,
+    ...relevo,
   },
   janelaCompacta: {
     padding: 12,
@@ -110,15 +110,17 @@ const styles = StyleSheet.create({
     fontFamily: fontes.negrito,
     letterSpacing: 1,
   },
+  lista: {
+    paddingRight: 4,
+    paddingBottom: 4,
+  },
   contato: {
+    ...relevo,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 14,
     padding: 16,
     backgroundColor: cores.creme,
-    borderWidth: 2,
-    borderColor: cores.tinta,
-    borderBottomWidth: 4,
   },
   icone: {
     padding: 6,
