@@ -1,3 +1,4 @@
+import { cores, fontes } from './src/tema'
 import { useFonts } from 'expo-font'
 import {
     PixelifySans_400Regular,
@@ -39,11 +40,11 @@ export default function App() {
                 <Stack.Navigator
                     initialRouteName="Home"
                     screenOptions={{
-                        headerStyle: { backgroundColor: '#f6bfd4', borderBottomColor: '#512740', borderBottomWidth: 3 },
+                        headerStyle: { backgroundColor: cores.rosa, borderBottomColor: cores.tinta, borderBottomWidth: 3 },
                         headerBackImage: renderizarIconeVoltar,
-                        headerTintColor: '#512740',
-                        headerTitleStyle: { fontFamily: 'PixelifySans_700Bold', letterSpacing: 1 },
-                        cardStyle: { backgroundColor: '#f9e5f1' },
+                        headerTintColor: cores.tinta,
+                        headerTitleStyle: { fontFamily: fontes.negrito, letterSpacing: 1 },
+                        cardStyle: { backgroundColor: cores.escritorio },
                     }}
                 >
                     <Stack.Screen

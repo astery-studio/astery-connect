@@ -1,3 +1,4 @@
+import { cores, fontes } from '../tema'
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -31,19 +32,19 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 4,
         borderWidth: 2,
-        borderColor: "#512740",
+        borderColor: cores.tinta,
         borderRightWidth: 4,
         borderBottomWidth: 4,
     },
     balaoRecebido: {
-        backgroundColor: "#f8acd5",
+        backgroundColor: cores.rosaBalao,
     },
     balaoEnviado: {
-        backgroundColor: "#fff0c9",
+        backgroundColor: cores.baunilha,
     },
     texto: {
-        fontFamily: "PixelifySans_400Regular",
+        fontFamily: fontes.regular,
         fontSize: 16,
-        color: "#512740",
+        color: cores.tinta,
     },
 });

@@ -1,3 +1,4 @@
+import { cores, fontes } from '../tema'
 import { useEffect, useState } from 'react'
 import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -49,7 +50,7 @@ export default function ChatScreen({ route }) {
                 <View style={[estilos.janela, (telaEstreita || telaBaixa) && estilos.janelaCompacta]}>
                     <View style={estilos.faixaNome}>
                         <BichinhoPixel coelho={contatoCoelho} tamanho={26} />
-                        <IconePixel nome="heart" cor="#c75789" tamanho={16} />
+                        <IconePixel nome="heart" cor={cores.destaque} tamanho={16} />
                         <Text style={estilos.nome}>{nome}</Text>
                     </View>
 
@@ -97,7 +98,7 @@ const estilos = StyleSheet.create({
     tela: {
         paddingBottom: 12,
         flex: 1,
-        backgroundColor: '#f9e5f1',
+        backgroundColor: cores.escritorio,
     },
     conteudo: {
         flex: 1,
@@ -117,9 +118,9 @@ const estilos = StyleSheet.create({
         maxWidth: 720,
         flex: 1,
         padding: 14,
-        backgroundColor: 'rgba(246, 191, 212, 0.72)',
+        backgroundColor: cores.janela,
         borderWidth: 3,
-        borderColor: '#512740',
+        borderColor: cores.tinta,
         borderRightWidth: 5,
         borderBottomWidth: 5,
     },
@@ -129,25 +130,25 @@ const estilos = StyleSheet.create({
     faixaNome: {
         padding: 12,
         marginBottom: 12,
-        backgroundColor: '#fff5f8',
+        backgroundColor: cores.creme,
         borderWidth: 2,
-        borderColor: '#512740',
-        color: '#512740',
+        borderColor: cores.tinta,
+        color: cores.tinta,
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
     },
     nome: {
         flex: 1,
-        color: '#512740',
+        color: cores.tinta,
         fontSize: 18,
-        fontFamily: 'PixelifySans_700Bold',
+        fontFamily: fontes.negrito,
     },
     lista: {
         flex: 1,
-        backgroundColor: 'rgba(231, 220, 247, 0.25)',
+        backgroundColor: cores.vidro,
         borderWidth: 2,
-        borderColor: '#512740',
+        borderColor: cores.tinta,
     },
     rolagem: {
         flex: 1,
@@ -156,13 +157,13 @@ const estilos = StyleSheet.create({
         alignItems: 'center',
         gap: 8,
         padding: 16,
-        backgroundColor: '#fff5f8',
+        backgroundColor: cores.creme,
         borderWidth: 2,
-        borderColor: '#985577',
+        borderColor: cores.amora,
     },
     textoVazio: {
-        color: '#512740',
-        fontFamily: 'PixelifySans_400Regular',
+        color: cores.tinta,
+        fontFamily: fontes.regular,
         fontSize: 16,
         textAlign: 'center',
     },
@@ -180,14 +181,14 @@ const estilos = StyleSheet.create({
         alignItems: 'stretch',
     },
     campo: {
-        fontFamily: 'PixelifySans_400Regular',
+        fontFamily: fontes.regular,
         flex: 1,
         minHeight: 44,
         padding: 8,
-        backgroundColor: '#fff5f8',
+        backgroundColor: cores.creme,
         borderWidth: 2,
-        borderColor: '#512740',
-        color: '#512740',
+        borderColor: cores.tinta,
+        color: cores.tinta,
     },
     campoCompacto: {
         flex: 0,
@@ -199,13 +200,13 @@ const estilos = StyleSheet.create({
         minHeight: 44,
         justifyContent: 'center',
         paddingHorizontal: 10,
-        backgroundColor: '#f49ccd',
+        backgroundColor: cores.rosaForte,
         borderWidth: 2,
-        borderColor: '#512740',
+        borderColor: cores.tinta,
         borderBottomWidth: 4,
     },
     botaoTexto: {
-        color: '#512740',
-        fontFamily: 'PixelifySans_600SemiBold',
+        color: cores.tinta,
+        fontFamily: fontes.seminegrito,
     },
 })
