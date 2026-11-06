@@ -53,9 +53,9 @@ export default function HomeScreen({ navigation }) {
       <PapelPixel rosa />
       <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
         <View style={styles.faixaTitulo}>
-          <IconePixel nome="sparkles" cor="#a64e7a" />
+          <IconePixel nome="sparkles" cor={cores.baunilha} />
           <Text accessibilityRole="header" style={styles.titulo}>Contatos</Text>
-          <IconePixel nome="heart" cor={cores.destaque} />
+          <IconePixel nome="heart" cor={cores.rosaBalao} />
         </View>
 
         <FlatList
@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
     ...relevo,
     padding: 16,
     marginBottom: 20,
-    backgroundColor: cores.rosaForte,
+    backgroundColor: cores.tinta,
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
   },
   titulo: {
     flex: 1,
-    color: cores.tinta,
+    color: cores.creme,
     fontSize: 26,
     textAlign: "center",
     fontFamily: fontes.negrito,
