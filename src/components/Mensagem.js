@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff5f8",
     },
     texto: {
+        fontFamily: "PixelifySans_400Regular",
         fontSize: 16,
         color: "#512740",
     },

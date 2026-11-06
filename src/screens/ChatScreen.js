@@ -107,7 +107,7 @@ const estilos = StyleSheet.create({
         borderColor: '#512740',
         color: '#512740',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'PixelifySans_700Bold',
     },
     lista: {
         flex: 1,
@@ -129,6 +129,7 @@ const estilos = StyleSheet.create({
         gap: 8,
     },
     campo: {
+        fontFamily: 'PixelifySans_400Regular',
         flex: 1,
         minHeight: 44,
         padding: 8,
@@ -153,6 +154,6 @@ const estilos = StyleSheet.create({
     },
     botaoTexto: {
         color: '#512740',
-        fontWeight: 'bold',
+        fontFamily: 'PixelifySans_600SemiBold',
     },
 })

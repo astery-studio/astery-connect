@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     borderColor: "#512740",
     color: "#512740",
     fontSize: 21,
-    fontWeight: "bold",
+    fontFamily: "PixelifySans_700Bold",
     letterSpacing: 1,
   },
   contato: {
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "#512740",
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "PixelifySans_600SemiBold",
   },
   seta: {
     marginLeft: 8,
