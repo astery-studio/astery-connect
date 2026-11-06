@@ -1,5 +1,5 @@
-import { cores, fontes, relevo } from './src/tema'
-import { StyleSheet, View } from 'react-native'
+import { cores, fontes } from './src/tema'
+import { StyleSheet } from 'react-native'
 import { useFonts } from 'expo-font'
 import {
     PixelifySans_400Regular,
@@ -19,11 +19,7 @@ const Stack = createStackNavigator()
 
 // Desenha o ícone de voltar com a cor definida pelo navegador.
 function renderizarIconeVoltar({ tintColor }) {
-    return (
-        <View style={estilos.botaoVoltar}>
-            <IconePixel nome="arrow-left" cor={tintColor} tamanho={32} />
-        </View>
-    )
+    return <IconePixel nome="arrow-left" cor={tintColor} tamanho={32} />
 }
 
 // Carrega as fontes antes de montar as telas.
@@ -75,13 +71,5 @@ export default function App() {
 const estilos = StyleSheet.create({
     areaVoltar: {
         paddingStart: 16,
-    },
-    botaoVoltar: {
-        ...relevo,
-        width: 48,
-        height: 44,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: cores.creme,
     },
 })
