@@ -9,9 +9,9 @@ const contatos = [
 ];
 
 function abrirConversa(navigation, contato) {
-  navigation.navigate("ChatScreen", {
+  navigation.navigate("Chat", {
     contatoId: contato.id,
-    contatoNome: contato.nome,
+    nome: contato.nome,
   });
 }
 
