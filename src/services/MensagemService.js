@@ -28,4 +28,4 @@ class MensagemService {
     }
 }
 
-export default new MensagemService(new MensagemRepository())
+export default new MensagemService(MensagemRepository)
