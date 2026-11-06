@@ -3,6 +3,8 @@ import { FlatList, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import IconePixel from '../components/IconePixel';
+
 const contatos = [
   { id: "1", nome: "Ana Souza" },
   { id: "2", nome: "Bruno Lima" },
@@ -36,9 +38,9 @@ export default function HomeScreen({ navigation }) {
         accessibilityRole="button"
         accessibilityLabel={`Abrir conversa com ${item.nome}`}
       >
-        <Text style={styles.icone} accessibilityElementsHidden importantForAccessibility="no">♥</Text>
+        <View style={styles.icone}><IconePixel nome="heart" /></View>
         <Text style={styles.nome}>{item.nome}</Text>
-        <Text style={styles.seta} accessibilityElementsHidden importantForAccessibility="no">›</Text>
+        <IconePixel nome="chevron-right" />
       </TouchableOpacity>
     );
   }
@@ -46,7 +48,10 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       <View style={[styles.janela, width < 360 && styles.janelaCompacta]}>
-        <Text style={styles.titulo}>✦  Contatos</Text>
+        <View style={styles.faixaTitulo}>
+          <IconePixel nome="sparkles" />
+          <Text style={styles.titulo}>Contatos</Text>
+        </View>
 
         <FlatList
           data={contatos}
@@ -80,12 +85,19 @@ const styles = StyleSheet.create({
   janelaCompacta: {
     padding: 8,
   },
-  titulo: {
+  faixaTitulo: {
     padding: 12,
     marginBottom: 14,
     backgroundColor: "#f6bfd4",
     borderWidth: 2,
     borderColor: "#512740",
+    color: "#512740",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  titulo: {
+    flex: 1,
     color: "#512740",
     fontSize: 21,
     fontFamily: "PixelifySans_700Bold",
@@ -114,10 +126,5 @@ const styles = StyleSheet.create({
     color: "#512740",
     fontSize: 16,
     fontFamily: "PixelifySans_600SemiBold",
-  },
-  seta: {
-    marginLeft: 8,
-    color: "#7c305a",
-    fontSize: 24,
   },
 });

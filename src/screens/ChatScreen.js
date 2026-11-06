@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import IconePixel from '../components/IconePixel'
 import Mensagem from '../components/Mensagem'
 import mensagemService from '../services/MensagemService'
 
@@ -42,9 +43,10 @@ export default function ChatScreen({ route }) {
                 keyboardVerticalOffset={alturaCabecalho}
             >
                 <View style={estilos.janela}>
-                    <Text style={estilos.nome}>
-                        {'✦  '}{nome}
-                    </Text>
+                    <View style={estilos.faixaNome}>
+                        <IconePixel nome="sparkles" />
+                        <Text style={estilos.nome}>{nome}</Text>
+                    </View>
 
                     <FlatList
                         style={estilos.lista}
@@ -99,12 +101,19 @@ const estilos = StyleSheet.create({
         borderRightWidth: 5,
         borderBottomWidth: 5,
     },
-    nome: {
+    faixaNome: {
         padding: 10,
         marginBottom: 8,
         backgroundColor: '#fff5f8',
         borderWidth: 2,
         borderColor: '#512740',
+        color: '#512740',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+    },
+    nome: {
+        flex: 1,
         color: '#512740',
         fontSize: 18,
         fontFamily: 'PixelifySans_700Bold',

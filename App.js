@@ -11,7 +11,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import HomeScreen from './src/screens/HomeScreen'
 import ChatScreen from './src/screens/ChatScreen'
 
+import IconePixel from './src/components/IconePixel'
+
 const Stack = createStackNavigator()
+
+// Desenha o ícone de voltar com a cor definida pelo navegador.
+function renderizarIconeVoltar({ tintColor }) {
+    return <IconePixel nome="arrow-left" cor={tintColor} tamanho={24} />
+}
 
 // Carrega as fontes antes de montar as telas.
 export default function App() {
@@ -33,6 +40,7 @@ export default function App() {
                     initialRouteName="Home"
                     screenOptions={{
                         headerStyle: { backgroundColor: '#f6bfd4', borderBottomColor: '#512740', borderBottomWidth: 3 },
+                        headerBackImage: renderizarIconeVoltar,
                         headerTintColor: '#512740',
                         headerTitleStyle: { fontFamily: 'PixelifySans_700Bold', letterSpacing: 1 },
                         cardStyle: { backgroundColor: '#f9e5f1' },
