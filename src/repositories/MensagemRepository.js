@@ -16,6 +16,11 @@ class MensagemRepository {
 
     return mensagensDoContato;
   }
+
+  // Recebe uma mensagem e adiciona o objeto ao armazenamento em memória.
+  adicionarMensagem(mensagem) {
+    this.mensagens.push(mensagem);
+  }
 }
 
 export default new MensagemRepository();
