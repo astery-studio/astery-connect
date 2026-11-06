@@ -38,6 +38,7 @@ export default function ChatScreen({ route }) {
 
     return (
         <SafeAreaView style={estilos.tela} edges={['left', 'right', 'bottom']}>
+            <PapelPixel />
             <KeyboardAvoidingView
                 style={estilos.conteudo}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -51,7 +52,6 @@ export default function ChatScreen({ route }) {
                     </View>
 
                     <View style={estilos.lista}>
-                        <PapelPixel />
                         <FlatList
                             style={estilos.rolagem}
                             contentContainerStyle={estilos.mensagens}
@@ -107,7 +107,7 @@ const estilos = StyleSheet.create({
         maxWidth: 720,
         flex: 1,
         padding: 8,
-        backgroundColor: '#f6bfd4',
+        backgroundColor: 'rgba(246, 191, 212, 0.72)',
         borderWidth: 3,
         borderColor: '#512740',
         borderRightWidth: 5,
@@ -132,7 +132,7 @@ const estilos = StyleSheet.create({
     },
     lista: {
         flex: 1,
-        backgroundColor: '#e7dcf7',
+        backgroundColor: 'rgba(231, 220, 247, 0.25)',
         borderWidth: 2,
         borderColor: '#512740',
     },
