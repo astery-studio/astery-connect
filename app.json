@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Astery Connect",
+    "slug": "astery-connect",
+    "icon": "./assets/icone.png",
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icone.png",
+          "imageWidth": 200,
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "android": {
+      "softwareKeyboardLayoutMode": "resize"
+    },
+    "web": {
+      "favicon": "./assets/icone.png"
+    },
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light"
+  }
+}
