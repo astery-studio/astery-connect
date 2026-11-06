@@ -25,6 +25,7 @@ function obterChave(item) {
 
 export default function HomeScreen({ navigation }) {
   const { width } = useWindowDimensions();
+  const telaEstreita = width < 360;
 
   function renderizarContato({ item }) {
     function selecionarContato() {
@@ -46,8 +47,8 @@ export default function HomeScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
-      <View style={[styles.janela, width < 360 && styles.janelaCompacta]}>
+    <SafeAreaView style={[styles.container, telaEstreita && styles.containerCompacto]} edges={["left", "right", "bottom"]}>
+      <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
         <PapelPixel rosa />
         <View style={styles.faixaTitulo}>
           <IconePixel nome="sparkles" cor="#a64e7a" />
@@ -68,15 +69,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingHorizontal: 8,
+    paddingHorizontal: 24,
     backgroundColor: "#f9e5f1",
+  },
+  containerCompacto: {
+    paddingHorizontal: 12,
   },
   janela: {
     width: "100%",
     maxWidth: 640,
-    marginVertical: 12,
+    marginVertical: 20,
     flex: 1,
-    padding: 12,
+    padding: 16,
     backgroundColor: "#e7dcf7",
     borderWidth: 3,
     borderColor: "#512740",
@@ -84,11 +88,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
   },
   janelaCompacta: {
-    padding: 8,
+    padding: 12,
+    marginVertical: 12,
   },
   faixaTitulo: {
-    padding: 12,
-    marginBottom: 14,
+    padding: 16,
+    marginBottom: 18,
     backgroundColor: "#f6bfd4",
     borderWidth: 2,
     borderColor: "#512740",
@@ -107,8 +112,8 @@ const styles = StyleSheet.create({
   contato: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
-    padding: 12,
+    marginBottom: 14,
+    padding: 16,
     backgroundColor: "#fff5f8",
     borderWidth: 2,
     borderColor: "#512740",

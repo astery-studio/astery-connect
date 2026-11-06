@@ -8,9 +8,11 @@ import mensagemService from '../services/MensagemService'
 
 
 export default function ChatScreen({ route }) {
-    const { width, fontScale } = useWindowDimensions()
+    const { width, height, fontScale } = useWindowDimensions()
     const alturaCabecalho = useHeaderHeight()
-    const envioCompacto = width / fontScale < 320
+    const telaEstreita = width < 360
+    const telaBaixa = height < 500
+    const envioCompacto = width / fontScale < 360
     const { contatoId, nome } = route.params
     const contatoCoelho = Number(contatoId) % 2 === 0
     const [mensagens, setMensagens] = useState([])
@@ -40,11 +42,11 @@ export default function ChatScreen({ route }) {
         <SafeAreaView style={estilos.tela} edges={['left', 'right', 'bottom']}>
             <PapelPixel />
             <KeyboardAvoidingView
-                style={estilos.conteudo}
+                style={[estilos.conteudo, telaEstreita && estilos.conteudoEstreito, telaBaixa && estilos.conteudoBaixo]}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 keyboardVerticalOffset={alturaCabecalho}
             >
-                <View style={estilos.janela}>
+                <View style={[estilos.janela, (telaEstreita || telaBaixa) && estilos.janelaCompacta]}>
                     <View style={estilos.faixaNome}>
                         <BichinhoPixel coelho={contatoCoelho} tamanho={26} />
                         <IconePixel nome="heart" cor="#c75789" tamanho={16} />
@@ -99,23 +101,33 @@ const estilos = StyleSheet.create({
     conteudo: {
         flex: 1,
         alignItems: 'center',
-        paddingHorizontal: 8,
+        paddingHorizontal: 24,
+        paddingVertical: 20,
+    },
+    conteudoEstreito: {
+        paddingHorizontal: 12,
+        paddingVertical: 12,
+    },
+    conteudoBaixo: {
         paddingVertical: 8,
     },
     janela: {
         width: '100%',
         maxWidth: 720,
         flex: 1,
-        padding: 8,
+        padding: 14,
         backgroundColor: 'rgba(246, 191, 212, 0.72)',
         borderWidth: 3,
         borderColor: '#512740',
         borderRightWidth: 5,
         borderBottomWidth: 5,
     },
-    faixaNome: {
+    janelaCompacta: {
         padding: 10,
-        marginBottom: 8,
+    },
+    faixaNome: {
+        padding: 12,
+        marginBottom: 12,
         backgroundColor: '#fff5f8',
         borderWidth: 2,
         borderColor: '#512740',
@@ -154,24 +166,23 @@ const estilos = StyleSheet.create({
         textAlign: 'center',
     },
     mensagens: {
-        padding: 12,
+        padding: 14,
     },
     envio: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 8,
+        marginTop: 12,
+        gap: 10,
     },
     envioCompacto: {
         flexDirection: 'column',
         alignItems: 'stretch',
-        gap: 8,
     },
     campo: {
         fontFamily: 'PixelifySans_400Regular',
         flex: 1,
         minHeight: 44,
         padding: 8,
-        marginRight: 8,
         backgroundColor: '#fff5f8',
         borderWidth: 2,
         borderColor: '#512740',
@@ -179,7 +190,6 @@ const estilos = StyleSheet.create({
     },
     campoCompacto: {
         flex: 0,
-        marginRight: 0,
     },
     botao: {
         flexDirection: 'row',
