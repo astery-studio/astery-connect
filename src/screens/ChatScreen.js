@@ -81,7 +81,7 @@ export default function ChatScreen({ route }) {
                             accessibilityRole="button"
                             onPress={enviarMensagem}
                         >
-                            <IconePixel nome="heart" cor="#9c396a" tamanho={16} />
+                            <IconePixel nome="heart" cor="#83315f" tamanho={16} />
                             <Text style={estilos.botaoTexto}>Enviar</Text>
                         </TouchableOpacity>
                     </View>
@@ -188,7 +188,7 @@ const estilos = StyleSheet.create({
         minHeight: 44,
         justifyContent: 'center',
         paddingHorizontal: 10,
-        backgroundColor: '#eea4c3',
+        backgroundColor: '#f49ccd',
         borderWidth: 2,
         borderColor: '#512740',
         borderBottomWidth: 4,

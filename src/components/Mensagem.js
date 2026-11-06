@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 4,
     },
     balaoRecebido: {
-        backgroundColor: "#f4abc9",
+        backgroundColor: "#f8acd5",
     },
     balaoEnviado: {
-        backgroundColor: "#fff5f8",
+        backgroundColor: "#fff0c9",
     },
     texto: {
         fontFamily: "PixelifySans_400Regular",

@@ -40,7 +40,7 @@ export default function HomeScreen({ navigation }) {
       >
         <View style={styles.icone}><BichinhoPixel coelho={Number(item.id) % 2 === 0} /></View>
         <Text style={styles.nome}>{item.nome}</Text>
-        <IconePixel nome="chevron-right" />
+        <IconePixel nome="chevron-right" cor="#784ba5" />
       </TouchableOpacity>
     );
   }
