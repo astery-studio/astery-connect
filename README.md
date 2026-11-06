@@ -16,6 +16,23 @@ Na aplicação, o usuário escolhe um contato, acessa a conversa correspondente 
 
 > A identidade visual da aplicação ainda está em construção. A arte deste README apresenta o conceito retrô do projeto, não a interface final.
 
+## Integrantes
+
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/assets/carla-profile.gif" alt="Perfil em pixel art de Carla Cristina Sousa Araújo" width="260" />
+      <br />
+      <strong>Carla Cristina Sousa Araújo</strong>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/assets/kaylanne-profile.gif" alt="Perfil em pixel art de Kaylanne de Jesus Sousa Satiro" width="260" />
+      <br />
+      <strong>Kaylanne de Jesus Sousa Satiro</strong>
+    </td>
+  </tr>
+</table>
+
 ## Requisitos atendidos
 
 | Requisito do trabalho | Implementação |

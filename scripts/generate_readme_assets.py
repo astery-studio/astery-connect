@@ -12,6 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
 SOURCE_COVER = ASSETS / "capa-retro.png"
 SOURCE_ARCHITECTURE = ASSETS / "arquitetura-base.png"
+TEAM_AVATARS = {
+    "carla": ASSETS / "carla-avatar.png",
+    "kaylanne": ASSETS / "kaylanne-avatar.png",
+}
 
 CREAM = "#fff5f7"
 PALE_PINK = "#fbd3e2"
@@ -129,7 +133,61 @@ def save_architecture_animation():
     )
 
 
+def profile_frame(avatar, frame_index):
+    canvas = Image.new("RGB", (260, 310), "#e8c9f3")
+    draw = ImageDraw.Draw(canvas)
+
+    for position in range(0, 260, 12):
+        draw.line((position, 0, position, 310), fill="#d7afe8")
+    for position in range(0, 310, 12):
+        draw.line((0, position, 260, position), fill="#d7afe8")
+
+    draw.rectangle((15, 15, 251, 301), fill="#5d2443")
+    draw.rectangle((10, 10, 246, 296), fill="#fff4f8", outline=BURGUNDY, width=3)
+    draw.rectangle((13, 13, 243, 43), fill=PINK)
+    draw.line((13, 45, 243, 45), fill=BURGUNDY, width=3)
+    draw.text((24, 21), "profile.exe", font=pixel_font(12, True), fill=BURGUNDY)
+
+    for x, symbol in [(184, "_"), (207, "o"), (230, "x")]:
+        draw.rectangle((x, 20, x + 15, 35), fill=CREAM, outline=BURGUNDY, width=2)
+        draw.text((x + 7, 27), symbol, anchor="mm", font=pixel_font(8, True), fill=BURGUNDY)
+
+    draw.rectangle((26, 56, 234, 264), fill="#241229", outline=BURGUNDY, width=3)
+    icon = avatar.resize((200, 200), Image.Resampling.NEAREST)
+    canvas.paste(icon, (30, 60))
+
+    draw.rectangle((26, 272, 234, 289), fill="#f8dbe7", outline=BURGUNDY, width=2)
+    status_color = "#f0629a" if frame_index % 2 else "#9b456b"
+    draw.rectangle((35, 278, 41, 284), fill=status_color)
+    draw.text((49, 276), "status: integrante", font=pixel_font(8, True), fill=BURGUNDY)
+
+    sparkle_positions = [(20, 64), (241, 252), (20, 246), (241, 66)]
+    sparkle_x, sparkle_y = sparkle_positions[frame_index % len(sparkle_positions)]
+    pixel_sparkle(draw, sparkle_x, sparkle_y, "#fff1a8", 1)
+
+    return canvas.resize((520, 620), Image.Resampling.NEAREST)
+
+
+def save_profile_animations():
+    for name, source_path in TEAM_AVATARS.items():
+        if not source_path.exists():
+            raise SystemExit(f"Avatar não encontrado: {source_path}")
+
+        avatar = Image.open(source_path).convert("RGB")
+        frames = [profile_frame(avatar, index) for index in range(4)]
+        frames[0].save(
+            ASSETS / f"{name}-profile.gif",
+            save_all=True,
+            append_images=frames[1:],
+            duration=[520, 520, 520, 760],
+            loop=0,
+            optimize=False,
+            disposal=2,
+        )
+
+
 if __name__ == "__main__":
     save_cover_animation()
     save_architecture_animation()
+    save_profile_animations()
     print(f"Assets retrô gerados em {ASSETS}")
