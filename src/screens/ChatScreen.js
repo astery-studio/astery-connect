@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { FlatList, KeyboardAvoidingView, Platform, TouchableOpacity, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native'
 import { useHeaderHeight } from '@react-navigation/elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import IconePixel from '../components/IconePixel'
+import IconePixel, { BichinhoPixel, PapelPixel } from '../components/IconePixel'
 import Mensagem from '../components/Mensagem'
 import mensagemService from '../services/MensagemService'
 
@@ -12,6 +12,7 @@ export default function ChatScreen({ route }) {
     const alturaCabecalho = useHeaderHeight()
     const envioCompacto = width / fontScale < 320
     const { contatoId, nome } = route.params
+    const contatoCoelho = Number(contatoId) % 2 === 0
     const [mensagens, setMensagens] = useState([])
     const [texto, setTexto] = useState('')
 
@@ -32,7 +33,7 @@ export default function ChatScreen({ route }) {
 
     // Mostra o texto e o alinhamento de cada mensagem.
     function renderizarMensagem({ item }) {
-        return <Mensagem mensagem={item.texto} recebida={item.recebida} />
+        return <Mensagem mensagem={item.texto} recebida={item.recebida} contatoCoelho={contatoCoelho} />
     }
 
     return (
@@ -44,17 +45,27 @@ export default function ChatScreen({ route }) {
             >
                 <View style={estilos.janela}>
                     <View style={estilos.faixaNome}>
-                        <IconePixel nome="sparkles" />
+                        <BichinhoPixel coelho={contatoCoelho} tamanho={26} />
+                        <IconePixel nome="heart" cor="#c75789" tamanho={16} />
                         <Text style={estilos.nome}>{nome}</Text>
                     </View>
 
-                    <FlatList
-                        style={estilos.lista}
-                        contentContainerStyle={estilos.mensagens}
-                        data={mensagens}
-                        keyboardShouldPersistTaps="handled"
-                        renderItem={renderizarMensagem}
-                    />
+                    <View style={estilos.lista}>
+                        <PapelPixel />
+                        <FlatList
+                            style={estilos.rolagem}
+                            contentContainerStyle={estilos.mensagens}
+                            data={mensagens}
+                            keyboardShouldPersistTaps="handled"
+                            renderItem={renderizarMensagem}
+                            ListEmptyComponent={
+                                <View style={estilos.vazio}>
+                                    <BichinhoPixel coelho={contatoCoelho} tamanho={64} />
+                                    <Text style={estilos.textoVazio}>Ainda não há mensagens</Text>
+                                </View>
+                            }
+                        />
+                    </View>
 
                     <View style={[estilos.envio, envioCompacto && estilos.envioCompacto]}>
                         <TextInput
@@ -70,6 +81,7 @@ export default function ChatScreen({ route }) {
                             accessibilityRole="button"
                             onPress={enviarMensagem}
                         >
+                            <IconePixel nome="heart" cor="#9c396a" tamanho={16} />
                             <Text style={estilos.botaoTexto}>Enviar</Text>
                         </TouchableOpacity>
                     </View>
@@ -124,6 +136,23 @@ const estilos = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#512740',
     },
+    rolagem: {
+        flex: 1,
+    },
+    vazio: {
+        alignItems: 'center',
+        gap: 8,
+        padding: 16,
+        backgroundColor: '#fff5f8',
+        borderWidth: 2,
+        borderColor: '#985577',
+    },
+    textoVazio: {
+        color: '#512740',
+        fontFamily: 'PixelifySans_400Regular',
+        fontSize: 16,
+        textAlign: 'center',
+    },
     mensagens: {
         padding: 12,
     },
@@ -153,6 +182,9 @@ const estilos = StyleSheet.create({
         marginRight: 0,
     },
     botao: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 4,
         minHeight: 44,
         justifyContent: 'center',
         paddingHorizontal: 10,

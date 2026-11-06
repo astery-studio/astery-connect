@@ -1,4 +1,5 @@
-import Svg, { Path } from 'react-native-svg'
+import { StyleSheet, View } from 'react-native'
+import Svg, { Defs, Path, Pattern, Rect } from 'react-native-svg'
 
 // Caminhos dos SVGs oficiais da Pixelarticons 2.4.2.
 const caminhos = {
@@ -40,3 +41,45 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
+// Desenha um avatar pixelado de gato ou coelho em duas cores.
+export function BichinhoPixel({ coelho = false, tamanho = 36 }) {
+    const pelagem = coelho ? '#fff6e9' : '#f9bfd7'
+    const contorno = coelho
+        ? 'M4 1h5v7h6V1h5v10h2v9h-2v2H4v-2H2v-9h2z'
+        : 'M2 3h5v2h2v3h6V5h2V3h5v17h-2v2H4v-2H2z'
+    const rosto = coelho
+        ? 'M6 3h1v7h10V3h1v9h2v7h-2v1H6v-1H4v-7h2z'
+        : 'M4 5h2v2h2v3h8V7h2V5h2v14h-2v1H6v-1H4z'
+
+    return (
+        <Svg width={tamanho} height={tamanho} viewBox="0 0 24 24" accessible={false}>
+            <Path d={contorno} fill="#512740" />
+            <Path d={rosto} fill={pelagem} />
+            <Path d="M6 15h3v2H6zm9 0h3v2h-3z" fill="#e77ca5" />
+            <Path d="M7 12h2v2H7zm8 0h2v2h-2zm-4 4h2v1h-2z" fill="#512740" />
+            <Path d="M9 5h2v1h2V5h2v4h-2V8h-2v1H9z" fill="#a64473" />
+            <Path d="M10 6h1v2h-1zm3 0h1v2h-1z" fill="#ffe0ec" />
+        </Svg>
+    )
+}
+
+// Preenche a área disponível com quadrados e brilhos decorativos.
+export function PapelPixel({ rosa = false }) {
+    return (
+        <View style={StyleSheet.absoluteFill} pointerEvents="none" importantForAccessibility="no-hide-descendants">
+            <Svg width="100%" height="100%" accessible={false}>
+                <Defs>
+                    <Pattern id="papel-pixel" width={64} height={64} patternUnits="userSpaceOnUse">
+                        <Rect width={64} height={64} fill={rosa ? '#f7e2f1' : '#dce5fa'} />
+                        <Path d="M0 0h16v16H0zm32 32h16v16H32z" fill={rosa ? '#edd4f3' : '#efd5f0'} />
+                        <Path d="M16 16h16v16H16zm32 32h16v16H48z" fill="#fff5fb" opacity={0.8} />
+                        <Path d="M46 10h2v4h4v2h-4v4h-2v-4h-4v-2h4z" fill="#fff3bc" />
+                        <Path d="M11 42h2v3h3v2h-3v3h-2v-3H8v-2h3z" fill="#d994bc" />
+                    </Pattern>
+                </Defs>
+                <Rect width="100%" height="100%" fill="url(#papel-pixel)" />
+            </Svg>
+        </View>
+    )
+}

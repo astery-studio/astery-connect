@@ -3,7 +3,7 @@ import { FlatList, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import IconePixel from '../components/IconePixel';
+import IconePixel, { BichinhoPixel, PapelPixel } from '../components/IconePixel';
 
 const contatos = [
   { id: "1", nome: "Ana Souza" },
@@ -38,7 +38,7 @@ export default function HomeScreen({ navigation }) {
         accessibilityRole="button"
         accessibilityLabel={`Abrir conversa com ${item.nome}`}
       >
-        <View style={styles.icone}><IconePixel nome="heart" /></View>
+        <View style={styles.icone}><BichinhoPixel coelho={Number(item.id) % 2 === 0} /></View>
         <Text style={styles.nome}>{item.nome}</Text>
         <IconePixel nome="chevron-right" />
       </TouchableOpacity>
@@ -48,8 +48,9 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
       <View style={[styles.janela, width < 360 && styles.janelaCompacta]}>
+        <PapelPixel rosa />
         <View style={styles.faixaTitulo}>
-          <IconePixel nome="sparkles" />
+          <IconePixel nome="sparkles" cor="#a64e7a" />
           <Text style={styles.titulo}>Contatos</Text>
         </View>
 
