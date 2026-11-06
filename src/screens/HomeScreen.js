@@ -1,6 +1,6 @@
 import { cores, fontes, relevo } from '../tema'
 import React from "react";
-import { FlatList, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { FlatList, Platform, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingHorizontal: 24,
+    paddingBottom: Platform.OS === "android" ? 8 : 0,
     backgroundColor: cores.escritorio,
   },
   containerCompacto: {

@@ -7,7 +7,7 @@ import {
     PixelifySans_600SemiBold,
     PixelifySans_700Bold,
 } from '@expo-google-fonts/pixelify-sans'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeScreen from './src/screens/HomeScreen'
@@ -36,7 +36,7 @@ export default function App() {
     }
 
     return (
-        <SafeAreaProvider>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
             <NavigationContainer>
                 <Stack.Navigator
                     initialRouteName="Home"
