@@ -1,5 +1,10 @@
+import { cores, fontes, relevo } from '../tema'
 import React from "react";
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Platform, TouchableOpacity, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import IconePixel, { BichinhoPixel, PapelPixel } from '../components/IconePixel';
 
 const contatos = [
   { id: "1", nome: "Ana Souza" },
@@ -20,55 +25,114 @@ function obterChave(item) {
 }
 
 export default function HomeScreen({ navigation }) {
+  const { width } = useWindowDimensions();
+  const telaEstreita = width < 360;
+
   function renderizarContato({ item }) {
     function selecionarContato() {
       abrirConversa(navigation, item);
     }
 
     return (
-      <View style={styles.contato}>
+      <TouchableOpacity
+        style={styles.contato}
+        activeOpacity={0.72}
+        onPress={selecionarContato}
+        accessibilityRole="button"
+        accessibilityLabel={`Abrir conversa com ${item.nome}`}
+      >
+        <View style={styles.icone}><BichinhoPixel coelho={Number(item.id) % 2 === 0} /></View>
         <Text style={styles.nome}>{item.nome}</Text>
-        <Button
-          title="Abrir conversa"
-          onPress={selecionarContato}
-        />
-      </View>
+        <IconePixel nome="chevron-right" cor={cores.ameixa} />
+      </TouchableOpacity>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Contatos</Text>
+    <SafeAreaView style={[styles.container, telaEstreita && styles.containerCompacto]} edges={Platform.OS === "android" ? ["left", "right"] : ["left", "right", "bottom"]}>
+      <PapelPixel rosa />
+      <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
+        <View style={styles.faixaTitulo}>
+          <IconePixel nome="sparkles" cor={cores.ameixa} />
+          <Text accessibilityRole="header" style={styles.titulo}>Contatos</Text>
+        </View>
 
-      <FlatList
-        data={contatos}
-        keyExtractor={obterChave}
-        renderItem={renderizarContato}
-      />
-    </View>
+        <FlatList
+          contentContainerStyle={styles.lista}
+          data={contatos}
+          keyExtractor={obterChave}
+          renderItem={renderizarContato}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#ffffff",
+    alignItems: "center",
+    paddingHorizontal: 24,
+    paddingBottom: Platform.OS === "android" ? 8 : 0,
+    backgroundColor: cores.escritorio,
+  },
+  containerCompacto: {
+    paddingHorizontal: 12,
+  },
+  janela: {
+    width: "100%",
+    maxWidth: 640,
+    marginVertical: 20,
+    flex: 1,
+    padding: 16,
+    backgroundColor: cores.rosa,
+    ...relevo,
+  },
+  janelaCompacta: {
+    padding: 12,
+    marginVertical: 12,
+  },
+  faixaTitulo: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 16,
+    backgroundColor: cores.creme,
+    borderLeftWidth: 4,
+    borderLeftColor: cores.ameixa,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
   titulo: {
-    marginBottom: 16,
+    flex: 1,
+    color: cores.tinta,
     fontSize: 24,
-    fontWeight: "bold",
+    fontFamily: fontes.negrito,
+  },
+  lista: {
+    paddingRight: 4,
+    paddingBottom: 4,
   },
   contato: {
-    marginBottom: 12,
+    ...relevo,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 14,
     padding: 16,
-    borderWidth: 1,
-    borderColor: "#cccccc",
-    borderRadius: 8,
+    backgroundColor: cores.creme,
+  },
+  icone: {
+    padding: 6,
+    marginRight: 10,
+    backgroundColor: cores.rosa,
+    color: "#7c305a",
+    borderWidth: 2,
+    borderColor: cores.tinta,
   },
   nome: {
-    marginBottom: 10,
-    fontSize: 18,
+    flex: 1,
+    color: cores.tinta,
+    fontSize: 16,
+    fontFamily: fontes.seminegrito,
   },
 });
