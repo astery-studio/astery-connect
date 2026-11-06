@@ -19,7 +19,7 @@ Na aplicação, o usuário escolhe um contato, acessa a conversa correspondente 
 ## Integrantes
 
 <div align="center">
-  <img src="docs/assets/integrantes.gif" alt="Perfis em pixel art de Carla Cristina Sousa Araújo e Kaylanne de Jesus Sousa Satiro" width="820" />
+  <img src="docs/assets/integrantes.gif" alt="Perfis em pixel art de Carla Cristina e Kaylanne Satiro" width="820" />
 </div>
 
 ## Requisitos atendidos
@@ -106,9 +106,3 @@ npm run ios
 3. A `ChatScreen` consulta no serviço apenas as mensagens daquele contato.
 4. O serviço valida o conteúdo, cria a mensagem e solicita seu armazenamento ao repositório.
 5. A lista é atualizada e o componente `Mensagem` define a aparência do balão.
-
-## Escopo da atividade
-
-Seguindo a proposta do trabalho, o projeto não utiliza MQTT, API externa ou banco de dados. As mensagens são armazenadas em memória por uma única instância do Service e não precisam permanecer disponíveis depois que o aplicativo é reiniciado.
-
-Essa escolha mantém o foco nos objetivos avaliados: navegação, estado local, reutilização de componentes e organização em camadas.
