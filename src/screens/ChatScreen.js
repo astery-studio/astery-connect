@@ -40,11 +40,11 @@ export default function ChatScreen({ route }) {
     }
 
     return (
-        <SafeAreaView style={estilos.tela} edges={['left', 'right', 'bottom']}>
+        <SafeAreaView style={estilos.tela} edges={Platform.OS === 'android' ? ['left', 'right'] : ['left', 'right', 'bottom']}>
             <PapelPixel />
             <KeyboardAvoidingView
                 style={[estilos.conteudo, telaEstreita && estilos.conteudoEstreito, telaBaixa && estilos.conteudoBaixo]}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                behavior={Platform.OS === 'android' ? 'height' : 'padding'}
                 keyboardVerticalOffset={alturaCabecalho}
             >
                 <View style={[estilos.janela, (telaEstreita || telaBaixa) && estilos.janelaCompacta]}>

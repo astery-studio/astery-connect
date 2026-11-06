@@ -13,6 +13,9 @@
         }
       ]
     ],
+    "android": {
+      "softwareKeyboardLayoutMode": "resize"
+    },
     "web": {
       "favicon": "./assets/icone.png"
     },

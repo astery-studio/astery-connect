@@ -1,5 +1,5 @@
 import { cores, fontes } from './src/tema'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { useFonts } from 'expo-font'
 import {
     PixelifySans_400Regular,
@@ -7,7 +7,7 @@ import {
     PixelifySans_600SemiBold,
     PixelifySans_700Bold,
 } from '@expo-google-fonts/pixelify-sans'
-import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context'
+import { initialWindowMetrics, SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeScreen from './src/screens/HomeScreen'
@@ -37,38 +37,44 @@ export default function App() {
 
     return (
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-            <NavigationContainer>
-                <Stack.Navigator
-                    initialRouteName="Home"
-                    screenOptions={{
-                        headerStyle: { backgroundColor: cores.rosa, borderBottomColor: cores.tinta, borderBottomWidth: 3 },
-                        headerBackImage: renderizarIconeVoltar,
-                        headerTintColor: cores.tinta,
-                        headerTitleStyle: { fontFamily: fontes.negrito, letterSpacing: 1 },
-                        cardStyle: { backgroundColor: cores.escritorio },
-                    }}
-                >
-                    <Stack.Screen
-                        name="Home"
-                        component={HomeScreen}
-                        options={{ title: 'astery.exe' }}
-                    />
-                    <Stack.Screen
-                        name="Chat"
-                        component={ChatScreen}
-                        options={{
-                            title: 'chat.exe',
-                            headerBackButtonDisplayMode: 'minimal',
-                            headerLeftContainerStyle: estilos.areaVoltar,
+            <SafeAreaView style={estilos.app} edges={Platform.OS === 'android' ? ['bottom'] : []}>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        initialRouteName="Home"
+                        screenOptions={{
+                            headerStyle: { backgroundColor: cores.rosa, borderBottomColor: cores.tinta, borderBottomWidth: 3 },
+                            headerBackImage: renderizarIconeVoltar,
+                            headerTintColor: cores.tinta,
+                            headerTitleStyle: { fontFamily: fontes.negrito, letterSpacing: 1 },
+                            cardStyle: { backgroundColor: cores.escritorio },
                         }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+                    >
+                        <Stack.Screen
+                            name="Home"
+                            component={HomeScreen}
+                            options={{ title: 'astery.exe' }}
+                        />
+                        <Stack.Screen
+                            name="Chat"
+                            component={ChatScreen}
+                            options={{
+                                title: 'chat.exe',
+                                headerBackButtonDisplayMode: 'minimal',
+                                headerLeftContainerStyle: estilos.areaVoltar,
+                            }}
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </SafeAreaView>
         </SafeAreaProvider>
     )
 }
 
 const estilos = StyleSheet.create({
+    app: {
+        flex: 1,
+        backgroundColor: cores.escritorio,
+    },
     areaVoltar: {
         paddingStart: 16,
     },

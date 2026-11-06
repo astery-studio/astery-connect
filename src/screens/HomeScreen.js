@@ -49,7 +49,7 @@ export default function HomeScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={[styles.container, telaEstreita && styles.containerCompacto]} edges={["left", "right", "bottom"]}>
+    <SafeAreaView style={[styles.container, telaEstreita && styles.containerCompacto]} edges={Platform.OS === "android" ? ["left", "right"] : ["left", "right", "bottom"]}>
       <PapelPixel rosa />
       <View style={[styles.janela, telaEstreita && styles.janelaCompacta]}>
         <View style={styles.faixaTitulo}>
