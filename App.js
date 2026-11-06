@@ -54,7 +54,7 @@ export default function App() {
                     <Stack.Screen
                         name="Chat"
                         component={ChatScreen}
-                        options={{ title: 'chat.exe' }}
+                        options={{ title: 'chat.exe', headerBackButtonDisplayMode: 'minimal' }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
